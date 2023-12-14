@@ -19,7 +19,7 @@ class _Group5State extends State<Group5> {
   late AudioCache audioCache;
   List<ItemModel> food = [
     ItemModel(name: 'لفة', value: 'لفة', img:  'assets/F/a0.jpg'),
-    ItemModel(name: 'بطاطة', value: 'بطاطة', img: 'assets/F/a1.jpg'),
+    ItemModel(name: 'بطاطا', value: 'بطاطا', img: 'assets/F/a1.jpg'),
     ItemModel(name: 'خاثر', value: 'خاثر', img: 'assets/F/a2.jpg'),
     ItemModel(name: 'لحمة', value: 'لحمة', img: 'assets/F/a3.jpg'),
     ItemModel(name: 'رز', value: 'رز', img:'assets/F/a4.jpg'),

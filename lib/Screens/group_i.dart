@@ -27,6 +27,7 @@ class _Group8State extends State<Group8> {
     ItemModel(name: 'موتور', value: 'موتور', img: 'assets/I/a5.jpeg'),
     ItemModel(name: 'طائرة', value: 'طائرة', img: 'assets/I/a6.jpeg'),
     ItemModel(name: 'طنبر', value: 'طنبر', img: 'assets/I/a7.jpeg'),
+    ItemModel(name: 'باص', value: 'باص', img: 'assets/I/a8.jpeg'),
   ];
   @override
   void initState() {

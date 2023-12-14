@@ -11,6 +11,7 @@ import 'package:pro/Screens/group_a.dart';
 import 'package:pro/Screens/group_b.dart';
 import 'package:pro/Screens/group_d.dart';
 import 'package:pro/Screens/group_g.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -32,16 +33,16 @@ class _HomeScreenState extends State<HomeScreen> {
     "العناية بالذات",
   ];
   List group = [
-     Group0(),
-     Group1(),
-     Group2(),
-     Group3(),
-     Group4(),
-     Group5(),
-     Group6(),
-     Group7(),
-     Group8(),
-     Group9(),
+    Group0(),
+    Group1(),
+    Group2(),
+    Group3(),
+    Group4(),
+    Group5(),
+    Group6(),
+    Group7(),
+    Group8(),
+    Group9(),
   ];
 
   IconData icon = Icons.volume_up;
@@ -56,27 +57,37 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              setState(() {
-                isIcon = !isIcon;
-              });
-            },
-            icon: isIcon
-                ? Icon(
-              Icons.volume_up,
-              size: 35,
-            )
-                : Icon(
-              Icons.volume_off,
-              size: 35,
-            )),
-        title:  Text(
+        leadingWidth: 135,
+        leading: Container(
+          child: Row(
+            children: [
+              Image(
+                image: AssetImage("assets/unnamed.jpg"),
+                height: 40.w,
+              ),
+              IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isIcon = !isIcon;
+                    });
+                  },
+                  icon: isIcon
+                      ? Icon(
+                          Icons.volume_up,
+                          size: 30.w,
+                        )
+                      : Icon(
+                          Icons.volume_off,
+                          size: 30.w,
+                        )),
+            ],
+          ),
+        ),
+        title: Text(
           'المجموعات',
           style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
         ),
         actions: [
-
           Image(
             image: AssetImage("assets/download.png"),
             width: 75.w,
@@ -91,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
           primary: false,
           slivers: <Widget>[
             SliverPadding(
-              padding:  EdgeInsetsDirectional.all(2.r),
+              padding: EdgeInsetsDirectional.all(2.r),
               sliver: SliverGrid.count(
                 crossAxisSpacing: 5.h,
                 mainAxisSpacing: 5.h,
@@ -112,14 +123,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-
                                 borderRadius:
                                     BorderRadiusDirectional.circular(25.r),
                                 color: Colors.lightBlue,
                               ),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Expanded(
@@ -132,12 +143,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fit: BoxFit.fill,
                                     ),
                                   ),
-                                   SizedBox(
+                                  SizedBox(
                                     height: 5.h,
                                   ),
                                   Text(
                                     food[index],
-                                    style:  TextStyle(
+                                    style: TextStyle(
                                         fontSize: 18.sp,
                                         fontWeight: FontWeight.w700,
                                         color: Colors.white),
