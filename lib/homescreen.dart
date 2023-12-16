@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pro/Screens/group_J.dart';
-import 'package:pro/Screens/group_c.dart';
-import 'package:pro/Screens/group_e.dart';
-import 'package:pro/Screens/group_f.dart';
-import 'package:pro/Screens/group_h.dart';
-import 'package:pro/Screens/group_i.dart';
+import 'package:pro/game/group_a.dart';
+import 'package:pro/game/itemmodel.dart';
 import 'package:pro/variables.dart';
-import 'package:pro/Screens/group_a.dart';
-import 'package:pro/Screens/group_b.dart';
-import 'package:pro/Screens/group_d.dart';
-import 'package:pro/Screens/group_g.dart';
+
+import 'Screens/group_a.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> food = [
+  List<String> foodGro = [
     "أدوات الطعام",
     "أدوات المنزل",
     "الحيوانات",
@@ -32,22 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
     "المواصلات",
     "العناية بالذات",
   ];
-  List group = [
-    Group0(),
-    Group1(),
-    Group2(),
-    Group3(),
-    Group4(),
-    Group5(),
-    Group6(),
-    Group7(),
-    Group8(),
-    Group9(),
-  ];
-
-  IconData icon = Icons.volume_up;
-
-  @override
+ IconData icon = Icons.volume_up;
+    @override
   void initState() {
     super.initState();
     isIcon = true;
@@ -111,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 childAspectRatio: 1.7.w,
                 //1.7
                 children: List.generate(
-                  food.length,
+                  foodGro.length,
                   (index) {
                     return Row(
                       mainAxisSize: MainAxisSize.max,
@@ -147,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 5.h,
                                   ),
                                   Text(
-                                    food[index],
+                                    foodGro[index],
                                     style: TextStyle(
                                         fontSize: 18.sp,
                                         fontWeight: FontWeight.w700,
@@ -160,9 +140,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () {
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => group[index]));
-                            },
+                                  MaterialPageRoute(//GroupGame
+                                   //   builder: (context) => Group0(pageNumber['$index'] as List<ItemModel>)));
+                                      builder: (context) => GroupGame(pageNumber[index] as List<ItemModel>,index)));
+                             },
                           ),
                         ),
                       ],

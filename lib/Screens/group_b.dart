@@ -20,27 +20,88 @@ class _Group1State extends State<Group1> {
 
   late AudioCache audioCache;
   List<ItemModel> food = [
-    ItemModel(name: 'شباك', value: 'شباك', img:  'assets/B/a0.jpeg'),
-    ItemModel(name: 'باب', value: 'باب', img: 'assets/B/a1.jpeg'),
-    ItemModel(name: 'ضوء', value: 'ضوء', img: 'assets/B/a2.jpeg'),
-    ItemModel(name: 'دفايه', value: 'دفايه', img: 'assets/B/a3.jpeg'),
-    ItemModel(name: 'مغسلة', value: 'مغسلة', img:'assets/B/a4.jpeg'),
-    ItemModel(name: 'حرام', value: 'حرام', img: 'assets/B/a5.jpeg'),
-    ItemModel(name: 'مراية', value: 'مراية', img: 'assets/B/a6.jpeg'),
-    ItemModel(name: 'فرشة', value: 'فرشة', img: 'assets/B/a7.jpeg'),
-    ItemModel(name: 'خزانة', value: 'خزانة', img: 'assets/B/a8.jpeg'),
-    ItemModel(name: 'مخدة', value: 'مخدة', img:'assets/B/a9.jpeg'),
-    ItemModel(name: 'كرسي', value: 'كرسي', img: 'assets/B/a10.jpeg'),
-    ItemModel(name: 'كرفان', value: 'كرفان', img: 'assets/B/a11.jpeg'),
-    ItemModel(name: 'طاولة', value: 'طاولة', img: 'assets/B/a12.jpeg'),
-    ItemModel(name: 'مطبخ', value: 'مطبخ', img: 'assets/B/a13.jpeg'),
+    ItemModel(name: 'شباك', value: 'شباك', img:  'assets/B/a0.jpeg',id: 0),
+    ItemModel(name: 'باب', value: 'باب', img: 'assets/B/a1.jpeg',id: 1),
+    ItemModel(name: 'ضوء', value: 'ضوء', img: 'assets/B/a2.jpeg',id: 2),
+    ItemModel(name: 'دفايه', value: 'دفايه', img: 'assets/B/a3.jpeg',id: 3),
+    ItemModel(name: 'مغسلة', value: 'مغسلة', img:'assets/B/a4.jpeg',id: 4),
+    ItemModel(name: 'حرام', value: 'حرام', img: 'assets/B/a5.jpeg',id: 5),
+    ItemModel(name: 'مراية', value: 'مراية', img: 'assets/B/a6.jpeg',id: 6),
+    ItemModel(name: 'فرشة', value: 'فرشة', img: 'assets/B/a7.jpeg',id: 7),
+    ItemModel(name: 'خزانة', value: 'خزانة', img: 'assets/B/a8.jpeg',id: 8),
+    ItemModel(name: 'مخدة', value: 'مخدة', img:'assets/B/a9.jpeg',id: 9),
+    ItemModel(name: 'كرسي', value: 'كرسي', img: 'assets/B/a10.jpeg',id: 10),
+    ItemModel(name: 'كرفان', value: 'كرفان', img: 'assets/B/a11.jpeg',id: 11),
+    ItemModel(name: 'طاولة', value: 'طاولة', img: 'assets/B/a12.jpeg',id: 12),
+    ItemModel(name: 'مطبخ', value: 'مطبخ', img: 'assets/B/a13.jpeg',id: 13),
   ];
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    globele;
+    food;
+    audioPlayer;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
+      persistentFooterAlignment: AlignmentDirectional.bottomStart,
+      persistentFooterButtons: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) {
+                    return group[--globele];
+                  }),
+                );
+              },
+              child: Text(
+                'السابق',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              ),
+            ),
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context){
+                        return GamePlayer(food); }
+                  ),
+                );},
+              child: Text('الأختبار',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w300),),
+
+            ),
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) {
+                    return group[++globele];
+                  }),
+                );
+              },
+              child: Text(
+                'التالي',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              ),
+
+            ),
+          ],
+        ),
+      ],
       appBar: AppBar(
         title:  Text(
           'أدوات المنزل',
@@ -212,19 +273,7 @@ class _Group1State extends State<Group1> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-          Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context){
-                  return GamePlayer(food); }
-            ),
-          );},
-        child: Text('الأختبار',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w300),),
-        isExtended: true,
 
-      ),
     );
   }
 

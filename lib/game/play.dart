@@ -19,50 +19,120 @@ class GamePlayer extends StatefulWidget {
 class _GamePlayerState extends State<GamePlayer> {
   late int score;
   late bool gameOver;
+  String? group;
+  late List<ItemModel> node = this.widget.items;
   late List<ItemModel> items2 = this.widget.items;
   AudioPlayer audioPlayer = AudioPlayer();
   late AudioCache audioCache;
-  late int items;
   late double result;
   late double medium;
 
+  String? number() {
+    String b = items2.first.name;
+    switch (b) {
+      case 'سكين':
+        {
+          group = 'A';
+        }
+        break;
+      case 'شباك':
+        {
+          group = 'B';
+        }
+        break;
+      case 'حصان':
+        {
+          group = 'C';
+        }
+        break;
+      case 'بصل':
+        {
+          group = 'D';
+        }
+        break;
+      case 'تمر':
+        {
+          group = 'E';
+        }
+        break;
+      case 'لفة':
+        {
+          group = 'F';
+        }
+        break;
+      case 'شاي':
+        {
+          group = 'G';
+        }
+        break;
+      case 'قميص':
+        {
+          group = 'H';
+        }
+        break;
+      case 'الشرطة':
+        {
+          group = 'I';
+        }
+        break;
+      case 'عطر':
+        {
+          group = 'J';
+        }
+        break;
+    }
+    return group;
+  }
 
   initGame() {
     score = 0;
     gameOver = false;
+    node = List<ItemModel>.from(this.widget.items);
     items2 = List<ItemModel>.from(this.widget.items);
     items2.shuffle();
-    this.widget.items.shuffle();
-    items = items2.length;
+    node.shuffle();
     medium = (items2.length / 2);
-    result=medium * 5;
+    result = medium * 5;
   }
 
   @override
   void initState() {
     super.initState();
     audioPlayer = AudioPlayer();
+    number();
     initGame();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (this.widget.items.length == 0) gameOver = true;
+    if (node.length == 0) gameOver = true;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) {
+                return HomeScreen();
+              }),
+            );
+          },
+          icon: Icon(Icons.home),
+        ),
+        title: Text('الأختبار'),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.all(15.r),
+                padding: EdgeInsetsDirectional.all(10.r),
               ),
               if (!gameOver)
                 Row(
                   children: [
                     Spacer(),
                     Column(
-                      children: this.widget.items.map(
+                      children: node.map(
                         (item) {
                           return Container(
                             margin: EdgeInsetsDirectional.all(8.r),
@@ -75,13 +145,15 @@ class _GamePlayerState extends State<GamePlayer> {
                               ),
                               childWhenDragging: CircleAvatar(
                                 backgroundColor: Colors.white,
-                                backgroundImage: AssetImage(item.img),
-                                radius: 40.r,
+                                backgroundImage: AssetImage(
+                                  item.img,
+                                ),
+                                radius: 35.r,
                               ),
                               child: CircleAvatar(
                                 backgroundColor: Colors.white,
                                 backgroundImage: AssetImage(item.img),
-                                radius: 30.r,
+                                radius: 35.r,
                               ),
                             ),
                           );
@@ -89,26 +161,31 @@ class _GamePlayerState extends State<GamePlayer> {
                       ).toList(),
                     ),
                     Spacer(
-                      flex: 2,
+                      flex: 3,
                     ),
                     Column(
                       children: items2.map((item) {
                         return DragTarget<ItemModel>(
                           onAccept: (receviedItem) {
                             if (item.value == receviedItem.value) {
-                              audioPlayer
-                                  .release()
-                                  .then((value) => playMusic(1));
+                              int i;
                               setState(() {
-                                this.widget.items.remove(receviedItem);
+                                i = item.id;
+                                audioPlayer
+                                    .release()
+                                    .then((value) => playMusic(i));
+                              });
+
+                              setState(() {
+                                node.remove(receviedItem);
                                 items2.remove(item);
                               });
                               score += 5;
                               item.accepting = false;
                             } else {
-                              audioPlayer
-                                  .release()
-                                  .then((value) => playMusic(0));
+                              audioPlayer.release().then((value) async {
+                                await audioPlayer.play(AssetSource('t0.mp3'));
+                              });
 
                               setState(() {
                                 score -= 5;
@@ -128,21 +205,17 @@ class _GamePlayerState extends State<GamePlayer> {
                             });
                           },
                           builder: (context, receviedItem, rejectItem) =>
-                              Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.r),
-                              color: item.accepting
-                                  ? Colors.grey[400]
-                                  : Colors.grey[200],
-                            ),
-                            alignment: Alignment.center,
-                            height: MediaQuery.of(context).size.width / 6,
-                            width: MediaQuery.of(context).size.width / 3,
-                            margin: EdgeInsetsDirectional.all(8),
-                            child: Text(
-                              item.name,
-                              style: Theme.of(context).textTheme.headlineMedium,
-                            ),
+                              Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: Colors.red,
+                                backgroundImage: AssetImage(item.img),
+                                radius: 35.r,
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                            ],
                           ),
                         );
                       }).toList(),
@@ -193,24 +266,28 @@ class _GamePlayerState extends State<GamePlayer> {
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.all(8.r),
-                        child:Text(score>=result?
-                          'تم أجتياز الاختبار بنجاح':'لم يتم اجتياز الأختبار '
-                            'يرجى المحاولة مرة أخرى',
-                          style:score>=result? Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(
-                            color: Colors.green,
-                            fontSize: 24.sp,
-                            fontWeight: FontWeight.bold,
-                          ):Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(
-                            color: Colors.red,
-                            fontSize: 24.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        child: Text(
+                          score >= result
+                              ? 'تم أجتياز الاختبار بنجاح'
+                              : 'لم يتم اجتياز الأختبار '
+                                  'يرجى المحاولة مرة أخرى',
+                          style: score >= result
+                              ? Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .copyWith(
+                                    color: Colors.green,
+                                    fontSize: 24.sp,
+                                    fontWeight: FontWeight.bold,
+                                  )
+                              : Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .copyWith(
+                                    color: Colors.red,
+                                    fontSize: 24.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                           maxLines: 2,
                           textAlign: TextAlign.center,
                         ),
@@ -235,8 +312,10 @@ class _GamePlayerState extends State<GamePlayer> {
                               },
                               child: Text(
                                 'الصفحة الرئيسية',
-                                style:
-                                    TextStyle(fontSize: 24,color: Colors.white,fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                               )),
                         ),
                       ),
@@ -252,7 +331,7 @@ class _GamePlayerState extends State<GamePlayer> {
 
   void playMusic(int s) async {
     // await audioPlayer.play(UrlSource(musicUrl)) ;
-    await audioPlayer.play(AssetSource('t$s.mp3'));
+    await audioPlayer.play(AssetSource('$group/a$s.mp3'));
   }
 
   @override

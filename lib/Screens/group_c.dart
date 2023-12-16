@@ -14,43 +14,101 @@ class Group2 extends StatefulWidget {
 }
 
 class _Group2State extends State<Group2> {
-  var scaffolidKey=GlobalKey<ScaffoldState>();
+  var scaffolidKey = GlobalKey<ScaffoldState>();
   AudioPlayer audioPlayer = AudioPlayer();
   late AudioCache audioCache;
   List<ItemModel> food = [
-    ItemModel(name: 'حصان', value: 'حصان', img:  'assets/C/a0.jpeg'),
-    ItemModel(name: 'دجاجة', value: 'دجاجة', img: 'assets/C/a1.jpeg'),
-    ItemModel(name: 'كلب', value: 'كلب', img: 'assets/C/a2.jpeg'),
-    ItemModel(name: 'بقرة', value: 'بقرة', img: 'assets/C/a3.jpeg'),
-    ItemModel(name: 'بسه', value: 'بسه', img:'assets/C/a4.jpeg'),
-    ItemModel(name: 'حمامة', value: 'حمامة', img: 'assets/C/a5.jpeg'),
-    ItemModel(name: 'عصفور', value: 'عصفور', img: 'assets/C/a6.jpeg'),
-    ItemModel(name: 'أرنب', value: 'أرنب', img: 'assets/C/a7.jpeg'),
-    ItemModel(name: 'خروف', value: 'خروف', img: 'assets/C/a8.jpeg'),
-    ItemModel(name: 'حمار', value: 'حمار', img: 'assets/C/a9.jpeg'),
-
+    ItemModel(name: 'حصان', value: 'حصان', img: 'assets/C/a0.jpeg', id: 0),
+    ItemModel(name: 'دجاجة', value: 'دجاجة', img: 'assets/C/a1.jpeg', id: 1),
+    ItemModel(name: 'كلب', value: 'كلب', img: 'assets/C/a2.jpeg', id: 2),
+    ItemModel(name: 'بقرة', value: 'بقرة', img: 'assets/C/a3.jpeg', id: 3),
+    ItemModel(name: 'بسه', value: 'بسه', img: 'assets/C/a4.jpeg', id: 4),
+    ItemModel(name: 'حمامة', value: 'حمامة', img: 'assets/C/a5.jpeg', id: 5),
+    ItemModel(name: 'عصفور', value: 'عصفور', img: 'assets/C/a6.jpeg', id: 6),
+    ItemModel(name: 'أرنب', value: 'أرنب', img: 'assets/C/a7.jpeg', id: 7),
+    ItemModel(name: 'خروف', value: 'خروف', img: 'assets/C/a8.jpeg', id: 8),
+    ItemModel(name: 'حمار', value: 'حمار', img: 'assets/C/a9.jpeg', id: 9),
   ];
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-   isIcon;
-    /// Compulsory
-    audioPlayer = AudioPlayer();
+
+    food;
+    audioPlayer;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffolidKey,
-      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
+      persistentFooterAlignment: AlignmentDirectional.bottomStart,
+      persistentFooterButtons: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) {
+                    return group[--globele];
+                  }),
+                );
+              },
+              child: Text(
+                'السابق',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              ),
+            ),
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) {
+                    return GamePlayer(food);
+                  }),
+                );
+              },
+              child: Text(
+                'الأختبار',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              ),
+            ),
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) {
+                    return group[++globele];
+                  }),
+                );
+              },
+              child: Text(
+                'التالي',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              ),
+            ),
+          ],
+        ),
+      ],
       appBar: AppBar(
-        title: Text('الحيوانات',style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.bold),),
+        title: Text(
+          'الحيوانات',
+          style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+        ),
         actions: [
           IconButton(
             onPressed: () {
               scaffolidKey.currentState?.showBottomSheet(
-                    (context) => Container(
+                (context) => Container(
                   width: double.infinity,
                   padding: EdgeInsetsDirectional.all(2.r),
                   child: Column(
@@ -59,26 +117,32 @@ class _Group2State extends State<Group2> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
-                        child: Lottie.asset('assets/anim.json',),),
+                        child: Lottie.asset(
+                          'assets/anim.json',
+                        ),
+                      ),
                       Expanded(
-                        child: Lottie.asset('assets/anim.json',),),
+                        child: Lottie.asset(
+                          'assets/anim.json',
+                        ),
+                      ),
                     ],
                   ),
                 ),
               );
             },
-            icon:  Icon(
+            icon: Icon(
               Icons.star,
               size: 30.r,
             ),
-          ),],
+          ),
+        ],
       ),
       body: CustomScrollView(
-
         primary: true,
         slivers: <Widget>[
           SliverPadding(
-            padding:EdgeInsetsDirectional.all(2.r),
+            padding: EdgeInsetsDirectional.all(2.r),
             sliver: SliverGrid.count(
               crossAxisSpacing: 5.h,
               mainAxisSpacing: 5.h,
@@ -93,7 +157,8 @@ class _Group2State extends State<Group2> {
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadiusDirectional.circular(25.r),
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(25.r),
                               color: Colors.blue,
                             ),
                             clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -105,11 +170,11 @@ class _Group2State extends State<Group2> {
                                     image: AssetImage(
                                       food[index].img,
                                     ),
-                                  width: double.maxFinite,
+                                    width: double.maxFinite,
                                     fit: BoxFit.fill,
                                   ),
                                 ),
-                                 SizedBox(
+                                SizedBox(
                                   height: 5.h,
                                 ),
                                 Text(
@@ -121,22 +186,24 @@ class _Group2State extends State<Group2> {
                           ),
                           onTap: () {
                             scaffolidKey.currentState?.showBottomSheet(
-                                  (context) =>Container(
+                              (context) => Container(
                                   width: double.infinity,
                                   padding: EdgeInsetsDirectional.all(2.r),
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       GestureDetector(
                                         child: Container(
                                           decoration: BoxDecoration(
                                               borderRadius:
-                                              BorderRadiusDirectional
-                                                  .circular(30.r)),
+                                                  BorderRadiusDirectional
+                                                      .circular(30.r)),
                                           clipBehavior:
-                                          Clip.antiAliasWithSaveLayer,
+                                              Clip.antiAliasWithSaveLayer,
                                           child: Image(
                                             image: AssetImage(
                                               food[index].img,
@@ -147,17 +214,16 @@ class _Group2State extends State<Group2> {
                                           ),
                                         ),
                                         onTap: () {
-                                          if(isIcon==true){
+                                          if (isIcon == true) {
                                             playMusic(index);
-                                          }
-                                          else{
+                                          } else {
                                             dispose();
                                           }
                                         },
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         children: [
                                           IconButton(
                                             onPressed: () {
@@ -185,16 +251,14 @@ class _Group2State extends State<Group2> {
                                       ),
                                       Text(
                                         food[index].name,
-                                        style:bottomSheetFont,
+                                        style: bottomSheetFont,
                                       ),
                                     ],
                                   )),
-
                             );
-                            if(isIcon==true){
+                            if (isIcon == true) {
                               playMusic(index);
-                            }
-                            else{
+                            } else {
                               dispose();
                             }
                           }),
@@ -205,19 +269,6 @@ class _Group2State extends State<Group2> {
             ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-          Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context){
-                  return GamePlayer(food); }
-            ),
-          );},
-        child: Text('الأختبار',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w300),),
-        isExtended: true,
-
       ),
     );
   }

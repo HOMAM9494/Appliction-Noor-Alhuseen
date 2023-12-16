@@ -19,34 +19,87 @@ class _Group3State extends State<Group3> {
   late AudioCache audioCache;
 
   List<ItemModel> food = [
-    ItemModel(name: 'بصل', value: 'بصل', img:  'assets/D/a0.jpeg'),
-    ItemModel(name: 'عرانيس', value: 'عرانيس', img: 'assets/D/a1.jpeg'),
-    ItemModel(name: 'خس', value: 'خس', img: 'assets/D/a2.jpeg'),
-    ItemModel(name: 'بقدونس', value: 'بقدونس', img: 'assets/D/a3.jpeg'),
-    ItemModel(name: 'جزر', value: 'جزر', img:'assets/D/a4.jpeg'),
-    ItemModel(name: 'ثوم', value: 'ثوم', img: 'assets/D/a5.jpeg'),
-    ItemModel(name: 'فليفلة', value: 'فليفلة', img: 'assets/D/a6.jpeg'),
-    ItemModel(name: 'بطاطا', value: 'بطاطا', img: 'assets/D/a7.jpeg'),
-    ItemModel(name: 'بيتنجان', value: 'بيتنجان', img: 'assets/D/a8.jpeg'),
-    ItemModel(name: 'بندورة', value: 'بندورة', img:'assets/D/a9.jpeg'),
-    ItemModel(name: 'خيار', value: 'خيار', img: 'assets/D/a10.jpeg'),
-    ItemModel(name: 'ليمون', value: 'ليمون', img: 'assets/D/a11.jpeg'),
+    ItemModel(name: 'بصل', value: 'بصل', img:  'assets/D/a0.jpeg',id: 0),
+    ItemModel(name: 'عرانيس', value: 'عرانيس', img: 'assets/D/a1.jpeg',id: 1),
+    ItemModel(name: 'خس', value: 'خس', img: 'assets/D/a2.jpeg',id: 2),
+    ItemModel(name: 'بقدونس', value: 'بقدونس', img: 'assets/D/a3.jpeg',id: 3),
+    ItemModel(name: 'جزر', value: 'جزر', img:'assets/D/a4.jpeg',id: 4),
+    ItemModel(name: 'ثوم', value: 'ثوم', img: 'assets/D/a5.jpeg',id: 5),
+    ItemModel(name: 'فليفلة', value: 'فليفلة', img: 'assets/D/a6.jpeg',id: 6),
+    ItemModel(name: 'بطاطا', value: 'بطاطا', img: 'assets/D/a7.jpeg',id: 7),
+    ItemModel(name: 'بيتنجان', value: 'بيتنجان', img: 'assets/D/a8.jpeg',id: 8),
+    ItemModel(name: 'بندورة', value: 'بندورة', img:'assets/D/a9.jpeg',id: 9),
+    ItemModel(name: 'خيار', value: 'خيار', img: 'assets/D/a10.jpeg',id: 10),
+    ItemModel(name: 'ليمون', value: 'ليمون', img: 'assets/D/a11.jpeg',id: 11),
 
   ];
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    isIcon;
-    food;
-    /// Compulsory
-    audioPlayer = AudioPlayer();
-  }
 
+    food;
+    audioPlayer;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffolidKey,
-      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
+      persistentFooterAlignment: AlignmentDirectional.bottomStart,
+      persistentFooterButtons: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) {
+                    return group[--globele];
+                  }),
+                );
+              },
+              child: Text(
+                'السابق',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              ),
+            ),
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context){
+                        return GamePlayer(food); }
+                  ),
+                );},
+              child: Text('الأختبار',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w300),),
+
+            ),
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) {
+                    return group[++globele];
+                  }),
+                );
+              },
+              child: Text(
+                'التالي',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              ),
+
+            ),
+          ],
+        ),
+      ],
       appBar: AppBar(
         title: Text(
           'الخضراوات',
@@ -220,19 +273,6 @@ class _Group3State extends State<Group3> {
             ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-          Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context){
-                  return GamePlayer(food); }
-            ),
-          );},
-        child: Text('الأختبار',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w300),),
-        isExtended: true,
-
       ),
     );
   }

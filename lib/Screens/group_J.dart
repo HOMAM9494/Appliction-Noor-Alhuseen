@@ -19,29 +19,83 @@ class _Group9State extends State<Group9> {
   late AudioCache audioCache;
 
   List<ItemModel> food = [
-    ItemModel(name: 'عطر', value: 'عطر', img:  'assets/J/a0.jpeg'),
-    ItemModel(name: 'حمام', value: 'حمام', img: 'assets/J/a1.jpeg'),
-    ItemModel(name: 'قصاصة', value: 'قصاصة', img: 'assets/J/a2.jpeg'),
-    ItemModel(name: 'منشفة', value: 'منشفة', img: 'assets/J/a3.jpeg'),
-    ItemModel(name: 'بكلة', value: 'بكلة', img:'assets/J/a4.jpeg'),
-    ItemModel(name: 'محارم', value: 'محارم', img: 'assets/J/a5.jpeg'),
-    ItemModel(name: 'صابون', value: 'صابون', img: 'assets/J/a6.jpeg'),
-    ItemModel(name: 'ليفة', value: 'ليفة', img: 'assets/J/a7.jpeg'),
-    ItemModel(name: 'مشط', value: 'مشط', img: 'assets/J/a8.jpeg'),
+    ItemModel(name: 'عطر', value: 'عطر', img:  'assets/J/a0.jpeg',id: 0),
+    ItemModel(name: 'حمام', value: 'حمام', img: 'assets/J/a1.jpeg',id: 1),
+    ItemModel(name: 'قصاصة', value: 'قصاصة', img: 'assets/J/a2.jpeg',id: 2),
+    ItemModel(name: 'منشفة', value: 'منشفة', img: 'assets/J/a3.jpeg',id: 3),
+    ItemModel(name: 'بكلة', value: 'بكلة', img:'assets/J/a4.jpeg',id: 4),
+    ItemModel(name: 'محارم', value: 'محارم', img: 'assets/J/a5.jpeg',id: 5),
+    ItemModel(name: 'صابون', value: 'صابون', img: 'assets/J/a6.jpeg',id: 6),
+    ItemModel(name: 'ليفة', value: 'ليفة', img: 'assets/J/a7.jpeg',id: 7),
+    ItemModel(name: 'مشط', value: 'مشط', img: 'assets/J/a8.jpeg',id: 8),
   ];
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-      isIcon;
-    /// Compulsory
-    audioPlayer = AudioPlayer();
+    globele;
+    food;
+    audioPlayer;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffolidKey,
-      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
+      persistentFooterAlignment: AlignmentDirectional.bottomStart,
+      persistentFooterButtons: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) {
+                    return group[--globele];
+                  }),
+                );
+              },
+              child: Text(
+                'السابق',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              ),
+            ),
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context){
+                        return GamePlayer(food); }
+                  ),
+                );},
+              child: Text('الأختبار',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w300),),
+
+            ),
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) {
+                    return group[++globele];
+                  }),
+                );
+              },
+              child: Text(
+                'التالي',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              ),
+
+            ),
+          ],
+        ),
+      ],
       appBar: AppBar(
         title: Text('العناية بالذات',style: TextStyle(fontSize: 24.sp,fontWeight: FontWeight.bold),),
         actions: [
@@ -203,20 +257,7 @@ class _Group9State extends State<Group9> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-          Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context){
-                  return GamePlayer(food); }
-            ),
-          );},
-        child: Text('الأختبار',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w300),),
-        isExtended: true,
-
-      ),
-    );
+     );
   }
 
   void playMusic(int s) async {

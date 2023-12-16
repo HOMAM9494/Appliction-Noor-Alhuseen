@@ -18,33 +18,86 @@ class _Group5State extends State<Group5> {
   AudioPlayer audioPlayer = AudioPlayer();
   late AudioCache audioCache;
   List<ItemModel> food = [
-    ItemModel(name: 'لفة', value: 'لفة', img:  'assets/F/a0.jpg'),
-    ItemModel(name: 'بطاطا', value: 'بطاطا', img: 'assets/F/a1.jpg'),
-    ItemModel(name: 'خاثر', value: 'خاثر', img: 'assets/F/a2.jpg'),
-    ItemModel(name: 'لحمة', value: 'لحمة', img: 'assets/F/a3.jpg'),
-    ItemModel(name: 'رز', value: 'رز', img:'assets/F/a4.jpg'),
-    ItemModel(name: 'مقدوس', value: 'مقدوس', img: 'assets/F/a5.jpg'),
-    ItemModel(name: 'خبز', value: 'خبز', img: 'assets/F/a6.jpg'),
-    ItemModel(name: 'دجاج', value: 'دجاج', img: 'assets/F/a7.jpg'),
-    ItemModel(name: 'بسكوت', value: 'بسكوت', img: 'assets/F/a8.jpg'),
-    ItemModel(name: 'فلافل', value: 'فلافل', img: 'assets/F/a9.jpg'),
+    ItemModel(name: 'لفة', value: 'لفة', img:  'assets/F/a0.jpg',id: 0),
+    ItemModel(name: 'بطاطا', value: 'بطاطا', img: 'assets/F/a1.jpg',id: 1),
+    ItemModel(name: 'خاثر', value: 'خاثر', img: 'assets/F/a2.jpg',id: 2),
+    ItemModel(name: 'لحمة', value: 'لحمة', img: 'assets/F/a3.jpg',id: 3),
+    ItemModel(name: 'رز', value: 'رز', img:'assets/F/a4.jpg',id: 4),
+    ItemModel(name: 'مقدوس', value: 'مقدوس', img: 'assets/F/a5.jpg',id: 5),
+    ItemModel(name: 'خبز', value: 'خبز', img: 'assets/F/a6.jpg',id:6),
+    ItemModel(name: 'دجاج', value: 'دجاج', img: 'assets/F/a7.jpg',id: 7),
+    ItemModel(name: 'بسكوت', value: 'بسكوت', img: 'assets/F/a8.jpg',id: 8),
+    ItemModel(name: 'فلافل', value: 'فلافل', img: 'assets/F/a9.jpg',id: 9),
   ];
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    isIcon;
-
-    /// Compulsory
-    audioPlayer = AudioPlayer();
+    globele;
+    food;
+    audioPlayer;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffolidKey,
-      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
-      appBar: AppBar(
+      persistentFooterAlignment: AlignmentDirectional.bottomStart,
+      persistentFooterButtons: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) {
+                    return group[--globele];
+                  }),
+                );
+              },
+              child: Text(
+                'السابق',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              ),
+            ),
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context){
+                        return GamePlayer(food); }
+                  ),
+                );},
+              child: Text('الأختبار',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w300),),
+
+            ),
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) {
+                    return group[++globele];
+                  }),
+                );
+              },
+              child: Text(
+                'التالي',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              ),
+
+            ),
+          ],
+        ),
+      ],
+       appBar: AppBar(
         title:  Text(
           'المأكولات',
           style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
@@ -214,19 +267,6 @@ class _Group5State extends State<Group5> {
             ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-          Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context){
-                  return GamePlayer(food); }
-            ),
-          );},
-        child: Text('الأختبار',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w300),),
-        isExtended: true,
-
       ),
     );
   }

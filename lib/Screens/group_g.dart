@@ -19,29 +19,83 @@ class _Group6State extends State<Group6> {
   late AudioCache audioCache;
 
   List<ItemModel> food = [
-    ItemModel(name: 'شاي', value: 'شاي', img:  'assets/G/a0.jpg'),
-    ItemModel(name: 'قهوة', value: 'قهوة', img: 'assets/G/a1.jpg'),
-    ItemModel(name: 'ماء', value: 'ماء', img: 'assets/G/a2.jpg'),
-    ItemModel(name: 'حليب', value: 'حليب', img: 'assets/G/a3.jpg'),
-    ItemModel(name: 'عصير', value: 'عصير', img:'assets/G/a4.jpg'),
-    ItemModel(name: 'متة', value: 'متة', img: 'assets/G/a5.jpg'),
-    ItemModel(name: 'دواء', value: 'دواء', img: 'assets/G/a6.jpg'),
+    ItemModel(name: 'شاي', value: 'شاي', img:  'assets/G/a0.jpg',id: 0),
+    ItemModel(name: 'قهوة', value: 'قهوة', img: 'assets/G/a1.jpg',id: 1),
+    ItemModel(name: 'ماء', value: 'ماء', img: 'assets/G/a2.jpg',id: 2),
+    ItemModel(name: 'حليب', value: 'حليب', img: 'assets/G/a3.jpg',id: 3),
+    ItemModel(name: 'عصير', value: 'عصير', img:'assets/G/a4.jpg',id: 4),
+    ItemModel(name: 'متة', value: 'متة', img: 'assets/G/a5.jpg',id: 5),
+    ItemModel(name: 'دواء', value: 'دواء', img: 'assets/G/a6.jpg',id: 6),
 
   ];
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-        isIcon;
-    /// Compulsory
-    audioPlayer = AudioPlayer();
+    globele;
+    food;
+    audioPlayer;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffolidKey,
-      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
+      persistentFooterAlignment: AlignmentDirectional.bottomStart,
+      persistentFooterButtons: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) {
+                    return group[--globele];
+                  }),
+                );
+              },
+              child: Text(
+                'السابق',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              ),
+            ),
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context){
+                        return GamePlayer(food); }
+                  ),
+                );},
+              child: Text('الأختبار',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w300),),
+
+            ),
+            MaterialButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) {
+                    return group[++globele];
+                  }),
+                );
+              },
+              child: Text(
+                'التالي',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+              ),
+
+            ),
+          ],
+        ),
+      ],
       appBar: AppBar(
         title:  Text(
           'المشروبات',
@@ -215,20 +269,7 @@ class _Group6State extends State<Group6> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-          Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context){
-                  return GamePlayer(food); }
-            ),
-          );},
-        child: Text('الأختبار',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w300),),
-        isExtended: true,
-
-      ),
-    );
+     );
   }
 
   void playMusic(int s) async {
