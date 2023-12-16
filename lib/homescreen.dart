@@ -3,9 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pro/game/group_a.dart';
 import 'package:pro/game/itemmodel.dart';
 import 'package:pro/variables.dart';
-
-import 'Screens/group_a.dart';
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
